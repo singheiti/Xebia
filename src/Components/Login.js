@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 import Loader from "./Loader";
+import SearchContainer from "../containers/SearchContainer";
 
 const Login = (props) => {
     const [uname, setUname] = useState("");
@@ -9,21 +11,26 @@ const Login = (props) => {
 
     const styles = {padding: "10px"};
 
+    const getAllPlanets = async() => {
+        await props.getAllPlanets();
+    }
+
     const userAuthentication = async() => {
         const response = await props.userAuthetication();
         if(response && response.success){
             var count = 0;
             var data = response.payload.results;
             data.some(value => {
-                if(value.name === uname && value.birth_year === pass){
+                if(value.name === uname && value.birth_year === pass) {
+                    getAllPlanets();
                     props.history.push("/landing");
-                    count++;
                     return true;
                 }
+                count++;
             })
 
             if(count === data.length) {
-            setIsWrongCreds(true)
+            setIsWrongCreds(true);
         }
         }
         else {

@@ -9,5 +9,6 @@ export default connect(state => ({
     totalPeople: state.login.totalPeople,
     errorLogin: state.login.errorLogin
 }), {
-    userAuthetication: login.userAuthetication
+    userAuthetication: login.userAuthetication,
+    getAllPlanets: login.getAllPlanets
 })(Login)

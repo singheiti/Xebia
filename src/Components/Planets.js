@@ -5,6 +5,8 @@ const Planets = (props) => {
 
     const [list, updateList] = useState([]);
     const search = useRef("");
+    const [data, getData] = useState({});
+    const [isSelect, setIsSelect] = useState(false);
 
     useEffect(()=> {
         getAllPlanets();
@@ -45,7 +47,6 @@ const Planets = (props) => {
             placeholder="Enter a planet name"
             ref={search}
             className="planet-input"
-            // style={{padding: "20px", width: "133%", fontSize: "20px"}}
             onChange={handleChange}
         />
 
@@ -55,18 +56,20 @@ const Planets = (props) => {
         {list && list !== [] ? list.map(item => {
             return (
                 <div>
-            <div style={{fontSize: getFontSize(item.population), border: "1px solid black"}}>
+            <div 
+                style={{fontSize: getFontSize(item.population), border: "1px solid black"}}
+                onClick={() => {getData(item); setIsSelect(true)}}
+            >
                  {item.name} 
                  <br />
                  {item.population}
             </div>
-            <br />
-            <br />
             </div>
             )
         }): null}
     </div>
     )}
+    {isSelect ? <div>{data}</div> : null}
     </div>
     )
 }
